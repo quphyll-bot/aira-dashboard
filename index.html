@@ -1,0 +1,110 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Aira — Control Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --card:rgba(255,255,255,0.08);
+      --stroke:rgba(255,255,255,0.12);
+      --text:#e8edf7;
+      --muted:#9aa3b2;
+      --accent:#7aa2ff;
+      --ok:#4ade80;
+      --warn:#facc15;
+      --bad:#f87171;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:Inter,system-ui; background:radial-gradient(80% 80% at 10% 10%, #1a2037 0%, #0b0f1a 45%, #0a0d14 100%); color:var(--text);}
+    .wrap{max-width:1200px;margin:40px auto;padding:0 20px;}
+    .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+    .title{font-size:28px;font-weight:700;}
+    .sub{color:var(--muted);font-size:14px;}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;}
+    .card{backdrop-filter:blur(14px); background:var(--card); border:1px solid var(--stroke); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,0.25);}
+    .card h3{margin:0 0 10px 0;font-size:15px;color:#cfd7e6;letter-spacing:.3px;}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.08);font-size:12px;color:var(--muted);} 
+    .status{font-weight:600;}
+    .ok{color:var(--ok);} .warn{color:var(--warn);} .bad{color:var(--bad);} 
+    .list{display:flex;flex-direction:column;gap:10px;}
+    .row{display:flex;justify-content:space-between;gap:10px;font-size:14px;}
+    .footer{margin-top:24px;color:var(--muted);font-size:12px;}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div>
+      <div class="title">Aira Control Panel</div>
+      <div class="sub" id="updated">Обновлено: —</div>
+    </div>
+    <div class="pill" id="clock">—</div>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="grid-column:span 4;">
+      <h3>Задачи</h3>
+      <div class="list" id="tasks"></div>
+    </div>
+    <div class="card" style="grid-column:span 4;">
+      <h3>Напоминания</h3>
+      <div class="list" id="reminders"></div>
+    </div>
+    <div class="card" style="grid-column:span 4;">
+      <h3>Боты</h3>
+      <div class="list" id="bots"></div>
+    </div>
+
+    <div class="card" style="grid-column:span 6;">
+      <h3>Прокси</h3>
+      <div class="list" id="proxies"></div>
+    </div>
+    <div class="card" style="grid-column:span 6;">
+      <h3>Ошибки / Логи</h3>
+      <div class="list" id="logs"></div>
+    </div>
+  </div>
+
+  <div class="footer">Страница статическая (GitHub Pages). Данные читаются из data/status.json</div>
+</div>
+
+<script>
+async function load(){
+  const res = await fetch('./data/status.json?ts=' + Date.now());
+  const data = await res.json();
+  document.getElementById('updated').innerText = 'Обновлено: ' + data.updated;
+
+  const render = (id, items) => {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    items.forEach(i => {
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.innerHTML = `<span>${i.title}</span><span class="status ${i.status||''}">${i.value||''}</span>`;
+      el.appendChild(div);
+    });
+  };
+  render('tasks', data.tasks);
+  render('reminders', data.reminders);
+  render('bots', data.bots);
+  render('proxies', data.proxies);
+  render('logs', data.logs);
+}
+
+function tick(){
+  const d = new Date();
+  document.getElementById('clock').innerText = d.toLocaleString('ru-RU');
+}
+
+load();
+setInterval(load, 30000);
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
