@@ -1,43 +1,8 @@
 {
-  "updated": "2026-02-11 00:47:40 UTC",
-  "tasks": [
-    {
-      "title": "Сайт продаж VPN",
-      "value": "в очереди",
-      "status": "warn"
-    },
-    {
-      "title": "Автоматизация регистрации ChatGPT",
-      "value": "в очереди",
-      "status": "warn"
-    }
-  ],
-  "reminders": [
-    {
-      "title": "Напомнить в 13:25 МСК",
-      "value": "запланировано",
-      "status": "ok"
-    }
-  ],
-  "bots": [
-    {
-      "title": "SkyCheckAira",
-      "value": "unknown",
-      "status": "warn"
-    }
-  ],
-  "proxies": [
-    {
-      "title": "MTProxy #1",
-      "value": "online",
-      "status": "ok"
-    }
-  ],
-  "logs": [
-    {
-      "title": "Последняя ошибка",
-      "value": "—",
-      "status": ""
-    }
-  ]
+  "updated": "—",
+  "tasks": [],
+  "reminders": [],
+  "bots": [],
+  "proxies": [],
+  "logs": []
 }
