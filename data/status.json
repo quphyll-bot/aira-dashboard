@@ -1,7 +1,24 @@
 {
-  "updated": "2026-02-11 00:49:42 UTC",
-  "tasks": [],
-  "reminders": [],
+  "updated": "—",
+  "tasks": [
+    {
+      "title": "Сайт продаж VPN",
+      "value": "в очереди",
+      "status": "warn"
+    },
+    {
+      "title": "Автоматизация регистрации ChatGPT аккаунтов",
+      "value": "в очереди",
+      "status": "warn"
+    }
+  ],
+  "reminders": [
+    {
+      "title": "Напомнить в 13:25 МСК",
+      "value": "запланировано",
+      "status": "ok"
+    }
+  ],
   "bots": [],
   "proxies": [],
   "logs": []
